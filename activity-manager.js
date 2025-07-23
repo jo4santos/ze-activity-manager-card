@@ -148,6 +148,20 @@ class ActivityManagerCard extends LitElement {
         `;
     }
 
+    updated(changedProps) {
+      super.updated(changedProps);
+      if (changedProps.has('hass') && this._config) {
+        const oldHass = changedProps.get('hass');
+        const allSensors = this._config.categories
+          .flatMap(c => c.activities.map(a => a.sensor))
+          .filter(Boolean);
+        const changed = allSensors.some(eid =>
+          oldHass.states[eid]?.last_changed !== this.hass.states[eid]?.last_changed
+        );
+        if (changed) this.requestUpdate();
+      }
+    }
+
     _renderActionButton(activity) {
         return html`
             <div class="am-action">
