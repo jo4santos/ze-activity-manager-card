@@ -63,7 +63,7 @@ class ActivityManagerCard extends LitElement {
         this._config.header =
             this._config.header || this._config.category || "Activities";
         this._config.showDueOnly = config.showDueOnly || false;
-        this._config.mode = config.mode || "basic";
+        this._config.mode = "basic";
         this._config.soonHours = config.soonHours || 24;
         this._config.icon = config.icon || "mdi:format-list-checkbox";
 
@@ -101,7 +101,6 @@ class ActivityManagerCard extends LitElement {
     render() {
         return html`
             <ha-card>
-                ${this._renderHeader()}
                 <div class="content">
                     <div class="am-grid">
                         ${repeat(
